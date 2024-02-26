@@ -10,9 +10,9 @@ const fsPromises = require('fs').promises;
 const path = require('path');
 
 const handleLogin = async (req, res) => {
-    const { user, pwd } = req.body;
-    if (!user || !pwd) return res.status(400).json({ 'message': 'Username and password are required.' });
-    const foundUser = usersDB.users.find(person => person.username === user);
+    const { username, pwd } = req.body;
+    if (!username || !pwd) return res.status(400).json({ 'message': 'Username and password are required.' });
+    const foundUser = usersDB.users.find(person => person.username === username);
     if (!foundUser) return res.sendStatus(401); //Unauthorized 
     // evaluate password 
     const match = await bcrypt.compare(pwd, foundUser.password);
@@ -26,7 +26,7 @@ const handleLogin = async (req, res) => {
         const refreshToken = jwt.sign(
             { "username": foundUser.username },
             process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: '1d' }
+            { expiresIn: '20d' }
         );
         // Saving refreshToken with current user
         const otherUsers = usersDB.users.filter(person => person.username !== foundUser.username);

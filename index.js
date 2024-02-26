@@ -11,9 +11,11 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use('/register', require('./register'))
 
 
-app.use('/auth', require('./auth'))
-app.use('/refresh', require('./refresh'))
-app.use('/logOut', require('./logOut'))
+app.use('/auth', require('./auth'));
+app.use('/refresh', require('./refresh'));
+app.use('/logOut', require('./logOut'));
+
+
 
 
 app.use(verifyJWT);
